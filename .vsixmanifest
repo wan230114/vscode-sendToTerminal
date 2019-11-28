@@ -2,7 +2,7 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
     <Identity Language="en-US" Id="vscode-ipython" Version="0.5.0" Publisher="pancho111203"/>
-    <DisplayName>IPython for VSCode</DisplayName>
+    <DisplayName>IPython for VSCode(Run in Current directory)</DisplayName>
     <Description xml:space="preserve">Integration with IPython, including useful keybindings</Description>
     <Tags></Tags>
     <Categories>Other</Categories>
@@ -12,10 +12,10 @@
       <Property Id="Microsoft.VisualStudio.Code.Engine" Value="^1.5.0" />
       <Property Id="Microsoft.VisualStudio.Code.ExtensionDependencies" Value="" />
       
-        <Property Id="Microsoft.VisualStudio.Services.Links.Source" Value="https://github.com/pancho111203/vscode-ipython" />
-        <Property Id="Microsoft.VisualStudio.Services.Links.Getstarted" Value="https://github.com/pancho111203/vscode-ipython" />
+        <Property Id="Microsoft.VisualStudio.Services.Links.Source" Value="https://github.com/wan230114/vscode-ipython-run" />
+        <Property Id="Microsoft.VisualStudio.Services.Links.Getstarted" Value="https://github.com/wan230114/vscode-ipython-run" />
         
-          <Property Id="Microsoft.VisualStudio.Services.Links.GitHub" Value="https://github.com/pancho111203/vscode-ipython" />
+          <Property Id="Microsoft.VisualStudio.Services.Links.GitHub" Value="https://github.com/wan230114/vscode-ipython-run" />
         
       
       

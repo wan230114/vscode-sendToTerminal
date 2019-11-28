@@ -3,7 +3,7 @@
 	"displayName": "IPython for VSCode(Run in Current directory)",
 	"repository": "https://github.com/wan230114/vscode-ipython-run",
 	"description": "Integration with IPython, including useful keybindings",
-	"version": "0.5.1",
+	"version": "0.5.2",
 	"publisher": "ChenJun",
 	"engines": {
 		"vscode": "^1.5.0"
