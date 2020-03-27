@@ -104,7 +104,7 @@ function activate(context) {
                 endLine = editor.selection.end.line + 1;
             }
             const command = `\n%load -r ${startLine}-${endLine} ${filename}\n`;
-            sendQueuedText(command, 200);
+            sendQueuedText(command, 500);
             sendQueuedText('\n');
         } else {
             const selectedText = editor.document.getText(selection);
@@ -125,8 +125,8 @@ function activate(context) {
         if (filename !== currentFilename) {
             updateFilename(filename, configuration.get('runInCurrentDirectory'));
         }
-        sendQueuedText(`%load ${filename}`, 200);
-        sendQueuedText('\n', 200);
+        sendQueuedText(`\n%load ${filename}\n`, 500);
+        sendQueuedText('\n');
         pythonTerminal.show(configuration.get("focusActiveEditorGroup"));
         queueLoop();
     });
