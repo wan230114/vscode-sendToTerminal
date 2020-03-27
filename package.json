@@ -3,7 +3,7 @@
     "displayName": "IPython for VSCode(Run in Current directory)",
     "repository": "https://github.com/wan230114/vscode-ipython-run",
     "description": "Integration with IPython, including useful keybindings",
-    "version": "0.5.3",
+    "version": "0.5.4",
     "publisher": "ChenJun",
     "engines": {
         "vscode": "^1.5.0"
@@ -26,14 +26,26 @@
                 "title": "Send Selected Text (or current line) To IPython"
             }
         ],
+        "keybindings": [
+            {
+                "key": "ctrl+enter",
+                "command": "ipython.sendSelectedToIPython",
+                "when": "!python.datascience.hascodecells"
+            }
+        ],
         "configuration": {
             "type": "object",
-            "title": "ipython configuration",
+            "title": "Ipython Configuration",
             "properties": {
+                "ipython.runInCurrentDirectory": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable/Disable Run in the same directory as the file, during ipython initialization."
+                },
                 "ipython.focusActiveEditorGroup": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable/Disable run \"workbench.action.focusActiveEditorGroup\"."
+                    "description": "Enable/Disable run focus Active EditorGroup."
                 },
                 "ipython.isAutoInputLine": {
                     "type": "boolean",

@@ -26,12 +26,14 @@ function removePythonTerminal() {
     waitsQueue = [];
 }
 
-function updateFilename(filename) {
+function updateFilename(filename, runInCurrentDirectory) {
     currentFilename = filename;
     sendQueuedText(`__file__ = r'${filename}'`)
     sendQueuedText('import sys')
     sendQueuedText('import os')
-    sendQueuedText(`os.chdir(os.path.dirname(r'${filename}'))`)
+    if (runInCurrentDirectory) {
+        sendQueuedText(`os.chdir(os.path.dirname(r'${filename}'))`)
+    }
     sendQueuedText('sys.path.append(os.path.dirname(__file__))', 2000)
     sendQueuedText('\n')
 }
@@ -87,7 +89,7 @@ function activate(context) {
         const editor = vscode.window.activeTextEditor;
         const filename = editor.document.fileName;
         if (filename !== currentFilename) {
-            updateFilename(filename);
+            updateFilename(filename, configuration.get('runInCurrentDirectory'));
         }
         // get selection & get snippet
         const selection = editor !== undefined ? editor.selection : undefined;
@@ -101,7 +103,7 @@ function activate(context) {
                 startLine = editor.selection.start.line + 1;
                 endLine = editor.selection.end.line + 1;
             }
-            const command = `%load -r ${startLine}-${endLine} ${filename}\n`;
+            const command = `\n%load -r ${startLine}-${endLine} ${filename}\n`;
             sendQueuedText(command, 200);
             sendQueuedText('\n');
         } else {
@@ -121,7 +123,7 @@ function activate(context) {
         const editor = vscode.window.activeTextEditor;
         const filename = editor.document.fileName;
         if (filename !== currentFilename) {
-            updateFilename(filename);
+            updateFilename(filename, configuration.get('runInCurrentDirectory'));
         }
         sendQueuedText(`%load ${filename}`, 200);
         sendQueuedText('\n', 200);
