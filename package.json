@@ -3,7 +3,7 @@
     "displayName": "IPython for VSCode(Run in Current directory)",
     "repository": "https://github.com/wan230114/vscode-ipython-run",
     "description": "Integration with IPython, including useful keybindings",
-    "version": "0.5.5",
+    "version": "0.5.6",
     "publisher": "ChenJun",
     "engines": {
         "vscode": "^1.5.0"
@@ -40,7 +40,7 @@
                 "ipython.runInCurrentDirectory": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable/Disable Run in the same directory as the file, during ipython initialization."
+                    "description": "Enable/Disable Run in the same directory as the file, during ipython initialization. (Need to restart ipython)"
                 },
                 "ipython.focusActiveEditorGroup": {
                     "type": "boolean",
@@ -49,7 +49,7 @@
                 },
                 "ipython.isAutoInputLine": {
                     "type": "boolean",
-                    "default": true,
+                    "default": false,
                     "description": "Enable/Disable auto get line in doc. use`%load`"
                 }
             }
