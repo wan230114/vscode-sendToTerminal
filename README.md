@@ -1,8 +1,13 @@
-使用示例：
+使用示例 (Usage example)：
 
 ![](https://img-blog.csdnimg.cn/20200327210021294.gif)
 
+说明 (Description)：
+> 示例中，主动设置了用户快捷键`ctrl+enter`作为命令`ipython.sendSelectedToIPython`的启动。  
+> 
+> In the example, the user shortcut key `ctrl + enter` is set as the startup of the command `ipython.sendSelectedToIPython`.
 
+# 简介 (INTRODUCTION)
 ---
 
 ## 工具简介
@@ -25,7 +30,7 @@
 - ipython.sendFileContentsToIPython  
   会将完整的文件内容发送到打开的ipython实例中（如果没有打开，则发送一个新的实例）
 - ipython.sendSelectedToIPython  
-  将选定的行或光标所在的行发送到打开的ipython实例（如果没有打开，则发送新的行，该命令默认绑定`ctrl+enter`）
+  将选定的行或光标所在的行发送到打开的ipython实例（如果没有打开，则发送新的行）
 
 限制：
 - 只有一个ipython实例可以工作，不能同时有多个。
@@ -52,7 +57,7 @@ Currently it includes two commands:
 - ipython.sendFileContentsToIPython  
   Will send the complete file contents into the open ipython instance (or a new one if none is open)
 - ipython.sendSelectedToIPython  
-  Will send the selected lines, or the one where the cursor is, to the open ipython instance (or a new one if none is open; This command is bound to `ctrl + enter` by default)
+  Will send the selected lines, or the one where the cursor is, to the open ipython instance (or a new one if none is open)
 
 
 Limitations: 

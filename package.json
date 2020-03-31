@@ -3,8 +3,9 @@
     "displayName": "IPython for VSCode(Run in Current directory)",
     "repository": "https://github.com/wan230114/vscode-ipython-run",
     "description": "Integration with IPython, including useful keybindings",
-    "version": "0.5.6",
+    "version": "0.5.7",
     "publisher": "ChenJun",
+    "icon": "ipython_icon.png",
     "engines": {
         "vscode": "^1.5.0"
     },
@@ -26,13 +27,7 @@
                 "title": "Send Selected Text (or current line) To IPython"
             }
         ],
-        "keybindings": [
-            {
-                "key": "ctrl+enter",
-                "command": "ipython.sendSelectedToIPython",
-                "when": "!python.datascience.hascodecells"
-            }
-        ],
+
         "configuration": {
             "type": "object",
             "title": "Ipython Configuration",
