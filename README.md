@@ -1,14 +1,22 @@
-使用示例 (Usage example)：
+## 使用示例
+
+示例中，主动设置了用户快捷键 `ctrl+enter` 作为命令 `ipython.sendSelectedToIPython` 的启动。  
+
+用户按键设置参考：
+```json
+"keybindings": [
+    {
+        "key": "ctrl+enter",
+        "mac": "cmd+enter",
+        "command": "ipython.sendSelectedToIPython",
+        "when": "editorTextFocus && !python.datascience.hascodecells"
+    }
+]
+```
+
+演示：
 
 ![](https://img-blog.csdnimg.cn/20200327210021294.gif)
-
-说明 (Description)：
-> 示例中，主动设置了用户快捷键`ctrl+enter`作为命令`ipython.sendSelectedToIPython`的启动。  
-> 
-> In the example, the user shortcut key `ctrl + enter` is set as the startup of the command `ipython.sendSelectedToIPython`.
-
-# 简介 (INTRODUCTION)
----
 
 ## 工具简介
 
@@ -36,8 +44,31 @@
 - 只有一个ipython实例可以工作，不能同时有多个。
 
 <br>
+<br>
 
 ---
+
+## Usage example：
+
+
+In the example, the user shortcut key `ctrl + enter` is set as the startup of the command `ipython.sendSelectedToIPython`.
+  
+
+User keysetting reference:  
+```json
+"keybindings": [
+    {
+        "key": "ctrl+enter",
+        "mac": "cmd+enter",
+        "command": "ipython.sendSelectedToIPython",
+        "when": "editorTextFocus && !python.datascience.hascodecells"
+    }
+]
+```
+
+Demo:
+
+![](https://img-blog.csdnimg.cn/20200327210021294.gif)
 
 ## Introduction
 Acknowledgements:

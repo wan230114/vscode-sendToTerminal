@@ -3,7 +3,7 @@
     "displayName": "IPython for VSCode(Run in Current directory)",
     "repository": "https://github.com/wan230114/vscode-ipython-run",
     "description": "Integration with IPython, including useful keybindings",
-    "version": "0.5.7",
+    "version": "0.5.8",
     "publisher": "ChenJun",
     "icon": "ipython_icon.png",
     "engines": {
@@ -27,7 +27,7 @@
                 "title": "Send Selected Text (or current line) To IPython"
             }
         ],
-
+        
         "configuration": {
             "type": "object",
             "title": "Ipython Configuration",
