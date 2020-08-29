@@ -3,7 +3,7 @@
     "displayName": "IPython for VSCode(Run in Current directory)",
     "repository": "https://github.com/wan230114/vscode-ipython-run",
     "description": "Integration with IPython, including useful keybindings",
-    "version": "0.5.9",
+    "version": "0.6.0",
     "publisher": "ChenJun",
     "icon": "ipython_icon.png",
     "engines": {
@@ -28,8 +28,8 @@
         ],
         "keybindings": [{
             "command": "ipython.sendSelectedToIPython",
-            "key": "Ctrl+enter",
-            "mac": "cmd+enter",
+            "key": "ctrl+enter",
+            "mac": "ctrl+enter",
             "when": "editorTextFocus && !notebookEditorFocused && !python.datascience.hascodecells"
         }],
         "configuration": {
@@ -50,6 +50,16 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Enable/Disable auto get line in doc. use`%load`"
+                },
+                "ipython.isSave": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable/Disable save doc before send to terminal."
+                },
+                "ipython.isMoveCursor": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable/Disable save doc before send to terminal."
                 }
             }
         }

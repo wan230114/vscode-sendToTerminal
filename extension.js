@@ -15,7 +15,7 @@ function createPythonTerminal() {
     textQueue = [];
     waitsQueue = [];
     pythonTerminal = vscode.window.createTerminal(pythonTerminalName);
-    sendQueuedText('ipython', 3000);
+    sendQueuedText('ipython', 1000);
 }
 
 
@@ -82,7 +82,7 @@ function queueLoop() {
         pythonTerminal.sendText(text);
         setTimeout(queueLoop, waitTime);
     } else {
-        if (isrunning) {            
+        if (isrunning) {
             if (textQueue.length === 0 && pythonTerminal !== null && pythonTerminal._queuedRequests.length === 0) {
                 // vscode.window.showInformationMessage('满足条件, 发送换行符中');
                 // pythonTerminal.sendText('\n');
@@ -93,7 +93,7 @@ function queueLoop() {
             noruntimes -= 1;
             if (noruntimes < 0) {
                 return
-            }; 
+            };
         };
         setTimeout(queueLoop, 200);
     }
@@ -120,41 +120,64 @@ function activate(context) {
         const selection = (editor !== undefined) ? editor.selection : undefined;
         const isSelection = (editor === undefined || selection === undefined || selection.isEmpty) ? false : true
         const isAutoInputLine = configuration.get("isAutoInputLine");
-        // 非选中状态下，或选中状态下AutoInputLine开启，计算start, end
+        const isSave = configuration.get("isSave");
+        const isMoveCursor = configuration.get("isMoveCursor");
+        // 获取选中字符串
+        const selectedText = editor.document.getText(selection);
+        const command_text = selectedText.toString();
+        const is_command_text_end = RegExp(/\n$/g).test(command_text)
+        // 获取起止位置信息, 计算start, end
+        let startLine, endLine;
+        if (editor.selection.isEmpty) {  //判断是否为光标状态，而非选中任何内容
+            startLine = editor.selection.active.line + 1
+            endLine = startLine;
+        } else {
+            startLine = editor.selection.start.line + 1;
+            // 看最后一个字符是否是\n
+            endLine = is_command_text_end ? editor.selection.end.line : editor.selection.end.line + 1;
+        };
+        // 非选中状态下，或选中状态下AutoInputLine开启
         if (isSelection === false || isAutoInputLine) {  //defalt: true
-            let startLine, endLine;
-            if (editor.selection.isEmpty) {
-                startLine = editor.selection.active.line + 1
-                endLine = startLine;
-            } else {
-                startLine = editor.selection.start.line + 1;
-                endLine = editor.selection.end.line + 1;
-            };
             command = `\n%load -r ${startLine}-${endLine} ${filename}\n`;
         };
+        // 发送前保存文件
+        if (isSave) {
+            let doc = vscode.window.activeTextEditor.document
+            doc.save()
+        };
         // 开始输入
-        if (isSelection) {  // 选中状态下
-            const selectedText = editor.document.getText(selection);
-            const command_text = selectedText.toString();
-            // isAutoInputLine功能开启
-            // sendQueuedText(isAutoInputLine ?command:command_text, 500);
+        if (isSelection) {  // 选中发送模式下
+            // isAutoInputLine功能开启  //sendQueuedText(isAutoInputLine ?command:command_text, 500);
             if (isAutoInputLine) {
-                sendQueuedText(command, 500);
+                sendQueuedText(command, 300);
                 sendQueuedText('\n');
-                // 选中的末尾没有\n，且有缩进
-                if (judgeCMD(command_text)) {
-                    console.log('发送缩进处理换行中')
+                if (judgeCMD(command_text)) {   // 选中的末尾没有\n，且有缩进
+                    console.log('发送缩进处理换行中');
                     sendQueuedText('\n', 300);
                 };
+                if (is_command_text_end) {  // 选中的末尾有\n
+                    sendQueuedText('\n');
+                };
             } else {
-                sendQueuedText(command_text, 500);
+                sendQueuedText(command_text, 300);
             };
-        } else {  // 非选中状态下, 直接发送command
-            sendQueuedText(command);
-            sendQueuedText('\n');
+        } else {  // 非选中发送模式下, 直接发送command
+            const POS = (startLine > 0) ? (startLine - 1) : startLine;
+            const charactersOnLine = vscode.window.activeTextEditor.document.lineAt(POS).text.length;
+            const range = new vscode.Range(new vscode.Position(POS, 0), new vscode.Position(POS, charactersOnLine));
+            let command_text = vscode.window.activeTextEditor.document.getText(range);
+            sendQueuedText(command_text, 300);
         };
-        sendQueuedText('\n');
+        // sendQueuedText('\n');
         pythonTerminal.show(configuration.get("focusActiveEditorGroup"));  //defalt: true
+        // 进行发送信息后进行移动光标到下一行
+        if (isMoveCursor) {
+            const linesDownToMoveCursor = (endLine == startLine) ? 1 : 0
+            if (is_command_text_end == false) {  //判断非/n结尾时
+                vscode.commands.executeCommand('cursorMove', { to: 'down', value: linesDownToMoveCursor });
+            };
+            vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter' });
+        }
         queueLoop();
     });
 
