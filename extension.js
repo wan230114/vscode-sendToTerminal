@@ -44,19 +44,14 @@ function sendQueuedText(text, waitTime = 50) {
 }
 
 function judgeCMD(CMD) {
-    // 单行统一false
     // 多行判断缩进, 并且末尾是否存在/n，有缩进且无/n返回true
     let A = CMD.split('\n')
-    console.log(CMD)
-    console.log(A)
-    if (A.length > 1) {
-        text = A[A.length - 1]
-        console.log(text)
-        istop = RegExp(/^\s+/g).test(text)
+    if (RegExp(/\n$/g).test(CMD)) {  // 判断末尾换行符
+        istop = RegExp(/^\s+/g).test(A[A.length - 2])
     } else {
-        istop = false
+        // 单行统一false
+        istop = (A.length > 1) ? RegExp(/^\s+/g).test(A[A.length - 1]) : false
     }
-    console.log(istop)
     return istop
 }
 // test:
@@ -138,7 +133,7 @@ function activate(context) {
         };
         // 非选中状态下，或选中状态下AutoInputLine开启
         if (isSelection === false || isAutoInputLine) {  //defalt: true
-            command = `\n%load -r ${startLine}-${endLine} ${filename}\n`;
+            command = `%load -r ${startLine}-${endLine} ${filename}`;
         };
         // 发送前保存文件
         if (isSave) {
@@ -149,17 +144,13 @@ function activate(context) {
         if (isSelection) {  // 选中发送模式下
             // isAutoInputLine功能开启  //sendQueuedText(isAutoInputLine ?command:command_text, 500);
             if (isAutoInputLine) {
-                sendQueuedText(command, 300);
+                sendQueuedText(command, 200);  // 等待200ms命令加载完毕
                 sendQueuedText('\n');
-                if (judgeCMD(command_text)) {   // 选中的末尾没有\n，且有缩进
-                    console.log('发送缩进处理换行中');
-                    sendQueuedText('\n', 300);
-                };
-                if (is_command_text_end) {  // 选中的末尾有\n
-                    sendQueuedText('\n');
-                };
             } else {
-                sendQueuedText(command_text, 300);
+                sendQueuedText(command_text, 200);
+            };
+            if (judgeCMD(command_text)) {
+                sendQueuedText('\n');
             };
         } else {  // 非选中发送模式下, 直接发送command
             const POS = (startLine > 0) ? (startLine - 1) : startLine;

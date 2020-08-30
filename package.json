@@ -3,7 +3,7 @@
     "displayName": "IPython for VSCode(Run in Current directory)",
     "repository": "https://github.com/wan230114/vscode-ipython-run",
     "description": "Integration with IPython, including useful keybindings",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "publisher": "ChenJun",
     "icon": "ipython_icon.png",
     "engines": {
@@ -59,7 +59,7 @@
                 "ipython.isMoveCursor": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable/Disable save doc before send to terminal."
+                    "description": "Enable/Disable move cursor to the next line after send to terminal."
                 }
             }
         }

@@ -24,6 +24,8 @@
 - 设置可选：发送后是否让光标自动切换到下一行，方便更为快捷 `文件`-->`终端` 的交互。
 
 
+---
+
 ## 使用方法
 
 当前它包括两个命令：
@@ -40,6 +42,14 @@
 
 ---
 
+### v0.6.1 (2020-08-30)
+
+**BUG修复**
+- [x] 更新功能选项的说明及README文档。
+- [x] 修复`ipython`命令`# %load`后，会多进行一行换行的BUG。
+
+---
+
 ### v0.6.0 (2020-08-30)
 
 **功能新增**
@@ -48,6 +58,7 @@
 - [x] 增加可选选项，发送后光标自动切换到下一行，方便更为快捷的交互。
 
 ---
+
 ### v0.5.7 -- v0.5.9
 
 **界面及描述优化**
@@ -55,6 +66,7 @@
 - [x] 更新文字语言描述
 - [x] 更新及美化图标
 
+---
 ### v0.5.6 (2020-03-30)
 
 **BUG 修复**
@@ -109,10 +121,12 @@
 **Personalized modification:**
 - Optional setting: whether to set to directly return to the editing window focused on the document after running the code in `ipython`.
 - Optional setting: whether to automatically load into the folder where the edited file is located during the initialization of `ipython` during runtime to run (it is convenient to read files in different folders).
--Setting optional: Whether to directly send the selected content to the terminal of `ipython` by using the command `%load -r` of `ipython`, otherwise only the selected text content will be sent.
--Optional settings: you can choose whether to save automatically before sending. This option is used with the `ipython` syntax `load`.
--Optional setting: whether to make the cursor automatically switch to the next line after sending, which is convenient and quicker to interact with `File`-->`Terminal`.
+- Optional setting: Whether to directly send the selected content to the terminal of `ipython` by using the command `%load -r` of `ipython`, otherwise only the selected text content will be sent.
+- Optional setting: You can choose whether to save automatically before sending. This option is used with the `ipython` syntax `load`.
+- Optional setting: Whether to make the cursor automatically switch to the next line after sending, which is convenient and quicker to interact with `File`-->`Terminal`.
 
+
+---
 
 ## Instructions
 
@@ -127,6 +141,14 @@ Limit:
 ---
 
 ## Changelogs
+
+---
+
+### v0.6.1 (2020-08-30)
+
+**BUG fix**
+- [x] Update the description of the function options and the README document.
+- [x] Fix the bug that after the `ipython` command `# %load`, there will be one more line wrap.
 
 ---
 
@@ -145,6 +167,8 @@ Limit:
 - [x] Update text language description
 - [x] Update and beautify icons
 
+---
+
 ### v0.5.6 (2020-03-30)
 
 **BUG fix**
@@ -153,6 +177,7 @@ Limit:
 
 
 ---
+
 ### v0.5.5 (2020-03-27)
 
 **BUG fix**
@@ -160,12 +185,14 @@ Limit:
 - [x] Fix the problem that ipython does not run due to loading timeout after inputting ipython.
 
 ---
+
 ### v0.5.4 (2020-03-27)
 
 **New features**
 - [x] Set optional settings: whether to use the command `%load -r` to read lines from the file using ipython to directly send the selected content directly to the ipython terminal, otherwise directly send the selected content.
 
 ---
+
 ### v0.5.3 (2020-03-27)
 
 **New features**
