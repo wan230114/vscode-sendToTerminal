@@ -1,11 +1,11 @@
 {
-    "name": "vscode-ipython",
-    "displayName": "IPython for VSCode(Run in Current directory)",
-    "repository": "https://github.com/wan230114/vscode-ipython-run",
-    "description": "Integration with IPython, including useful keybindings",
-    "version": "0.6.1",
+    "name": "vscode-send2terminal",
+    "displayName": "Terminal for VSCode(Run in Current directory)",
+    "repository": "https://github.com/wan230114/vscode-sendToTerminal",
+    "description": "Send text to terminal, including useful keybindings",
+    "version": "0.0.1",
     "publisher": "ChenJun",
-    "icon": "ipython_icon.png",
+    "icon": "icon.png",
     "engines": {
         "vscode": "^1.5.0"
     },
@@ -18,45 +18,40 @@
     "main": "./extension",
     "contributes": {
         "commands": [{
-                "command": "ipython.sendFileContentsToIPython",
-                "title": "Send File Contents To IPython"
+                "command": "terminal.sendCellContentsToTerminal",
+                "title": "Send File Contents To Terminal"
             },
             {
-                "command": "ipython.sendSelectedToIPython",
-                "title": "Send Selected Text (or current line) To IPython"
+                "command": "terminal.sendSelectedToTerminal",
+                "title": "Send Selected Text (or current line) To Terminal"
             }
         ],
         "keybindings": [{
-            "command": "ipython.sendSelectedToIPython",
+            "command": "terminal.sendSelectedToTerminal",
             "key": "ctrl+enter",
-            "mac": "ctrl+enter",
+            "mac": "cmd+enter",
             "when": "editorTextFocus && !notebookEditorFocused && !python.datascience.hascodecells"
         }],
         "configuration": {
             "type": "object",
-            "title": "Ipython Configuration",
+            "title": "Terminal Configuration",
             "properties": {
-                "ipython.runInCurrentDirectory": {
+                "terminal.runInCurrentDirectory": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Enable/Disable Run in the same directory as the file, during ipython initialization. (Need to restart ipython)"
+                    "description": "Enable/Disable Run in the same directory as the file, during terminal initialization. (Need to restart terminal)"
                 },
-                "ipython.focusActiveEditorGroup": {
+                "terminal.focusActiveEditorGroup": {
                     "type": "boolean",
                     "default": true,
                     "description": "Enable/Disable run focus Active EditorGroup."
                 },
-                "ipython.isAutoInputLine": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enable/Disable auto get line in doc. use`%load`"
-                },
-                "ipython.isSave": {
+                "terminal.isSave": {
                     "type": "boolean",
                     "default": true,
                     "description": "Enable/Disable save doc before send to terminal."
                 },
-                "ipython.isMoveCursor": {
+                "terminal.isMoveCursor": {
                     "type": "boolean",
                     "default": true,
                     "description": "Enable/Disable move cursor to the next line after send to terminal."

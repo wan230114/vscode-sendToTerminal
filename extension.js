@@ -2,7 +2,7 @@ let vscode = require('vscode');
 const helpers = require('./helpers');
 
 
-const pythonTerminalName = 'IPython';
+const pythonTerminalName = 'Terminal';
 
 let pythonTerminal = null;
 let textQueue = [];
@@ -10,13 +10,6 @@ let waitsQueue = [];
 let currentFilename = null;
 let isrunning = false;
 let noruntimes = 10;
-
-function createPythonTerminal() {
-    textQueue = [];
-    waitsQueue = [];
-    pythonTerminal = vscode.window.createTerminal(pythonTerminalName);
-    sendQueuedText('ipython', 1000);
-}
 
 
 function removePythonTerminal() {
@@ -28,13 +21,9 @@ function removePythonTerminal() {
 
 function updateFilename(filename, runInCurrentDirectory) {
     currentFilename = filename;
-    sendQueuedText(`__file__ = r'${filename}'`)
-    sendQueuedText('import sys')
-    sendQueuedText('import os')
     if (runInCurrentDirectory) {
-        sendQueuedText(`os.chdir(os.path.dirname(r'${filename}'))`)
+        sendQueuedText(`cd $(dirname ${filename})`)
     }
-    sendQueuedText('sys.path.append(os.path.dirname(__file__))', 2000)
     sendQueuedText('\n')
 }
 
@@ -101,11 +90,10 @@ function activate(context) {
         }
     });
 
-    let sendSelectedToIPython = vscode.commands.registerCommand('ipython.sendSelectedToIPython', function () {
-        const configuration = vscode.workspace.getConfiguration("ipython");
-        if (pythonTerminal === null) {
-            createPythonTerminal();
-        }
+    let sendSelectedToTerminal = vscode.commands.registerCommand('terminal.sendSelectedToTerminal', function () {
+        const configuration = vscode.workspace.getConfiguration("terminal");
+        pythonTerminal = vscode.window.activeTerminal;
+
         const editor = vscode.window.activeTextEditor;
         const filename = editor.document.fileName;
         if (filename !== currentFilename) {
@@ -114,7 +102,6 @@ function activate(context) {
         // get selection & get snippet
         const selection = (editor !== undefined) ? editor.selection : undefined;
         const isSelection = (editor === undefined || selection === undefined || selection.isEmpty) ? false : true
-        const isAutoInputLine = configuration.get("isAutoInputLine");
         const isSave = configuration.get("isSave");
         const isMoveCursor = configuration.get("isMoveCursor");
         // 获取选中字符串
@@ -131,10 +118,6 @@ function activate(context) {
             // 看最后一个字符是否是\n
             endLine = is_command_text_end ? editor.selection.end.line : editor.selection.end.line + 1;
         };
-        // 非选中状态下，或选中状态下AutoInputLine开启
-        if (isSelection === false || isAutoInputLine) {  //defalt: true
-            command = `%load -r ${startLine}-${endLine} ${filename}`;
-        };
         // 发送前保存文件
         if (isSave) {
             let doc = vscode.window.activeTextEditor.document
@@ -142,13 +125,7 @@ function activate(context) {
         };
         // 开始输入
         if (isSelection) {  // 选中发送模式下
-            // isAutoInputLine功能开启  //sendQueuedText(isAutoInputLine ?command:command_text, 500);
-            if (isAutoInputLine) {
-                sendQueuedText(command, 200);  // 等待200ms命令加载完毕
-                sendQueuedText('\n');
-            } else {
-                sendQueuedText(command_text, 200);
-            };
+            sendQueuedText(command_text, 200);
             if (judgeCMD(command_text)) {
                 sendQueuedText('\n');
             };
@@ -172,25 +149,25 @@ function activate(context) {
         queueLoop();
     });
 
-    let sendFileContentsToIPython = vscode.commands.registerCommand('ipython.sendFileContentsToIPython', function () {
-        const configuration = vscode.workspace.getConfiguration("ipython");
-        if (pythonTerminal === null) {
-            createPythonTerminal();
-        }
-        const editor = vscode.window.activeTextEditor;
-        const filename = editor.document.fileName;
-        if (filename !== currentFilename) {
-            updateFilename(filename, configuration.get('runInCurrentDirectory'));
-        }
-        sendQueuedText(`\n%load ${filename}\n`, 500);
-        sendQueuedText('\n');
-        sendQueuedText('\n');
-        pythonTerminal.show(configuration.get("focusActiveEditorGroup"));
-        queueLoop();
-    });
+    // let sendCellContentsToTerminal = vscode.commands.registerCommand('terminal.sendCellContentsToTerminal', function () {
+    //     const configuration = vscode.workspace.getConfiguration("terminal");
+    //     if (pythonTerminal === null) {
+    //         createPythonTerminal();
+    //     }
+    //     const editor = vscode.window.activeTextEditor;
+    //     const filename = editor.document.fileName;
+    //     if (filename !== currentFilename) {
+    //         updateFilename(filename, configuration.get('runInCurrentDirectory'));
+    //     }
+    //     sendQueuedText(`\n#%load ${filename}\n`, 500);
+    //     sendQueuedText('\n');
+    //     sendQueuedText('\n');
+    //     pythonTerminal.show(configuration.get("focusActiveEditorGroup"));
+    //     queueLoop();
+    // });
 
-    context.subscriptions.push(sendSelectedToIPython);
-    context.subscriptions.push(sendFileContentsToIPython);
+    context.subscriptions.push(sendSelectedToTerminal);
+    // context.subscriptions.push(sendCellContentsToTerminal);
 }
 exports.activate = activate;
 

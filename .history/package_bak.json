@@ -1,5 +1,0 @@
-        "keybindings": [{
-            "key": "ctrl+enter",
-            "command": "ipython.sendSelectedToIPython",
-            "when": "!python.datascience.hascodecells"
-        }],

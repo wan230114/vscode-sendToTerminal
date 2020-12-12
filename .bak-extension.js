@@ -1,8 +1,8 @@
 let vscode = require('vscode');
 const helpers = require('./helpers');
 
-const configuration = vscode.workspace.getConfiguration("ipython");
-const pythonTerminalName = 'IPython';
+const configuration = vscode.workspace.getConfiguration("terminal");
+const pythonTerminalName = 'Terminal';
 let pythonTerminal = null;
 let textQueue = [];
 let waitsQueue = [];
@@ -14,7 +14,7 @@ function createPythonTerminal() {
     textQueue = [];
     waitsQueue = [];
     pythonTerminal = vscode.window.createTerminal(pythonTerminalName);
-    sendQueuedText('ipython', 50);
+    sendQueuedText('terminal', 50);
 }
 
 
@@ -90,7 +90,7 @@ function activate(context) {
 
     queueLoop();
 
-    let sendSelectedToIPython = vscode.commands.registerCommand('ipython.sendSelectedToIPython', function () {
+    let sendSelectedToTerminal = vscode.commands.registerCommand('terminal.sendSelectedToTerminal', function () {
         if (pythonTerminal === null) {
             createPythonTerminal();
         }
@@ -123,7 +123,7 @@ function activate(context) {
         pythonTerminal.show();
     });
 
-    let sendFileContentsToIPython = vscode.commands.registerCommand('ipython.sendFileContentsToIPython', function () {
+    let sendCellContentsToTerminal = vscode.commands.registerCommand('terminal.sendCellContentsToTerminal', function () {
         if (pythonTerminal === null) {
             createPythonTerminal();
         }
@@ -141,8 +141,8 @@ function activate(context) {
         pythonTerminal.show();
     });
 
-    context.subscriptions.push(sendSelectedToIPython);
-    context.subscriptions.push(sendFileContentsToIPython);
+    context.subscriptions.push(sendSelectedToTerminal);
+    context.subscriptions.push(sendCellContentsToTerminal);
 }
 exports.activate = activate;
 
