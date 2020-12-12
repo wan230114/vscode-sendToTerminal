@@ -1,6 +1,6 @@
 {
     "name": "vscode-send2terminal",
-    "displayName": "Terminal for VSCode(Run in Current directory)",
+    "displayName": "Send To Terminal",
     "repository": "https://github.com/wan230114/vscode-sendToTerminal",
     "description": "Send text to terminal, including useful keybindings",
     "version": "0.0.1",
@@ -17,10 +17,7 @@
     ],
     "main": "./extension",
     "contributes": {
-        "commands": [{
-                "command": "terminal.sendCellContentsToTerminal",
-                "title": "Send File Contents To Terminal"
-            },
+        "commands": [
             {
                 "command": "terminal.sendSelectedToTerminal",
                 "title": "Send Selected Text (or current line) To Terminal"
@@ -34,7 +31,7 @@
         }],
         "configuration": {
             "type": "object",
-            "title": "Terminal Configuration",
+            "title": "Send To Terminal Configuration",
             "properties": {
                 "terminal.runInCurrentDirectory": {
                     "type": "boolean",
