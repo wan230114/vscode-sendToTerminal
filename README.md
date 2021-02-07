@@ -25,7 +25,7 @@
 **后续改进计划**
 - [ ] 增加类似于Jupyter的Cell功能，一次性将一个Cell以`{commands}`形式发送至终端。
   - [ ] 开发 `{ \n commands \n }` 块读取形式，新增一条命令，自动发送该块。
-  - [ ] 开发 `#%% \n commands \n #%%` Cell形式（难度较高，没有时间弄了~）
+  - [ ] 开发 `#%% \n commands \n #%%` 类似Jupyter Cell形式（难度较高，暂无时间弄~）
 - [ ] 增加光标自动跳过注释行的功能，比如下一列是注释，运行后可设置直接跳过。
 - [ ] 增加自动判断shell的基本循环语句块，如`do/then/...`
 
@@ -43,7 +43,7 @@
 
 ---
 
-### v0.0.1 (20201213)
+### v0.0.1 (2020-12-13)
 
 **第一次新版本发布**
 > - [x] 设置可选：在`terminal`运行代码后，是否设置直接返回聚焦于文档的编辑窗口。
@@ -51,6 +51,13 @@
 > - [x] 设置可选：发送前可以选择是否自动保存，此选项配合`terminal`语法`load`的使用。
 > - [x] 设置可选：发送后是否让光标自动切换到下一行，方便更为快捷 `文件`-->`终端` 的交互。
 
+### v0.0.2 (2021-02-08)
+
+**修复BUG**
+> - [x] 修复更新 vscode `January 2021 (version 1.53)` 后无法正常使用的BUG。
+
+**功能优化**
+> - [x] 选中状态下，不自动跳转下一行。
 
 <br>
 
@@ -101,10 +108,18 @@ Currently it includes a command:
 
 ---
 
-### v0.0.1 (20201213)
+### v0.0.1 (2020-12-13)
 
 **First new version released**
->-[x] Setting is optional: After running the code in `terminal`, whether to set to directly return to the editing window focused on the document.
->-[x] Optional setting: Whether to automatically load into the folder where the edited file is located during the initialization of `terminal` during runtime (it is convenient to read files in different levels of folders).
->-[x] Setting is optional: you can choose whether to save automatically before sending. This option is used with `terminal` syntax `load`.
->-[x] Setting is optional: whether to let the cursor automatically switch to the next line after sending, which is convenient and quicker to interact with `File`-->`Terminal`
+> - [x] Setting is optional: After running the code in `terminal`, whether to set to directly return to the editing window focused on the document.
+> - [x] Optional setting: Whether to automatically load into the folder where the edited file is located during the initialization of `terminal` during runtime (it is convenient to read files in different levels of folders).
+> - [x] Setting is optional: you can choose whether to save automatically before sending. This option is used in conjunction with the `terminal` syntax `load`.
+> - [x] Setting is optional: whether to let the cursor automatically switch to the next line after sending, which is convenient and quicker to interact with `File`-->`Terminal`.
+
+### v0.0.2 (2021-02-08)
+
+**Fix BUG**
+> - [x] Fix the bug that vscode cannot be used normally after updating vscode `January 2021 (version 1.53)`.
+
+**Function optimization**
+> - [x] When selected, do not automatically jump to the next line.

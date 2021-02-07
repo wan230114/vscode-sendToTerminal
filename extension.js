@@ -53,35 +53,35 @@ function judgeCMD(CMD) {
 
 
 // let runtimes = 0
-function queueLoop() {
-    // runtimes += 1
-    // vscode.window.showInformationMessage(runtimes+'|' + textQueue.length + 'textQueue:' + textQueue);
-    // if (pythonTerminal !== null) {
-    //     vscode.window.showInformationMessage('pythonTerminal._queuedRequests:' + pythonTerminal._queuedRequests.length);
-    // }
-    if (textQueue.length > 0 && pythonTerminal !== null && pythonTerminal._queuedRequests.length === 0) {
-        isrunning = true;
-        const text = textQueue.shift();
-        const waitTime = waitsQueue.shift();
-        pythonTerminal.sendText(text);
-        setTimeout(queueLoop, waitTime);
-    } else {
-        if (isrunning) {
-            if (textQueue.length === 0 && pythonTerminal !== null && pythonTerminal._queuedRequests.length === 0) {
-                // vscode.window.showInformationMessage('满足条件, 发送换行符中');
-                // pythonTerminal.sendText('\n');
-                // vscode.commands.executeCommand('workbench.action.focusActiveEditorGroup');
-                isrunning = false;
-            };
-        } else {
-            noruntimes -= 1;
-            if (noruntimes < 0) {
-                return
-            };
-        };
-        setTimeout(queueLoop, 200);
-    }
-}
+// function queueLoop() {
+//     // runtimes += 1
+//     // vscode.window.showInformationMessage(runtimes+'|' + textQueue.length + 'textQueue:' + textQueue);
+//     // if (pythonTerminal !== null) {
+//     //     vscode.window.showInformationMessage('pythonTerminal._queuedRequests:' + pythonTerminal._queuedRequests.length);
+//     // }
+//     if (textQueue.length > 0 && pythonTerminal !== null && pythonTerminal._queuedRequests.length === 0) {
+//         isrunning = true;
+//         const text = textQueue.shift();
+//         const waitTime = waitsQueue.shift();
+//         pythonTerminal.sendText(text);
+//         setTimeout(queueLoop, waitTime);
+//     } else {
+//         if (isrunning) {
+//             if (textQueue.length === 0 && pythonTerminal !== null && pythonTerminal._queuedRequests.length === 0) {
+//                 // vscode.window.showInformationMessage('满足条件, 发送换行符中');
+//                 // pythonTerminal.sendText('\n');
+//                 // vscode.commands.executeCommand('workbench.action.focusActiveEditorGroup');
+//                 isrunning = false;
+//             };
+//         } else {
+//             noruntimes -= 1;
+//             if (noruntimes < 0) {
+//                 return
+//             };
+//         };
+//         setTimeout(queueLoop, 200);
+//     }
+// }
 
 function activate(context) {
     vscode.window.onDidCloseTerminal(function (event) {
@@ -125,28 +125,29 @@ function activate(context) {
         };
         // 开始输入
         if (isSelection) {  // 选中发送模式下
-            sendQueuedText(command_text, 200);
+            pythonTerminal.sendText(command_text);
             if (judgeCMD(command_text)) {
-                sendQueuedText('\n');
+                pythonTerminal.sendText('\n');
             };
         } else {  // 非选中发送模式下, 直接发送command
             const POS = (startLine > 0) ? (startLine - 1) : startLine;
             const charactersOnLine = vscode.window.activeTextEditor.document.lineAt(POS).text.length;
             const range = new vscode.Range(new vscode.Position(POS, 0), new vscode.Position(POS, charactersOnLine));
             let command_text = vscode.window.activeTextEditor.document.getText(range);
-            sendQueuedText(command_text, 300);
+            pythonTerminal.sendText(command_text);
         };
-        // sendQueuedText('\n');
+
+        // pythonTerminal.sendText('\n');
         pythonTerminal.show(configuration.get("focusActiveEditorGroup"));  //defalt: true
         // 进行发送信息后进行移动光标到下一行
-        if (isMoveCursor) {
+        if (isMoveCursor && !isSelection ) {
             const linesDownToMoveCursor = (endLine == startLine) ? 1 : 0
             if (is_command_text_end == false) {  //判断非/n结尾时
                 vscode.commands.executeCommand('cursorMove', { to: 'down', value: linesDownToMoveCursor });
             };
-            vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter' });
+            vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter'});  //光标归位于行首
         }
-        queueLoop();
+        // queueLoop();
     });
 
     // let sendCellContentsToTerminal = vscode.commands.registerCommand('terminal.sendCellContentsToTerminal', function () {
