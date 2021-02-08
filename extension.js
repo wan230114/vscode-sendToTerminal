@@ -140,12 +140,30 @@ function activate(context) {
         // pythonTerminal.sendText('\n');
         pythonTerminal.show(configuration.get("focusActiveEditorGroup"));  //defalt: true
         // 进行发送信息后进行移动光标到下一行
-        if (isMoveCursor && !isSelection ) {
-            const linesDownToMoveCursor = (endLine == startLine) ? 1 : 0
-            if (is_command_text_end == false) {  //判断非/n结尾时
-                vscode.commands.executeCommand('cursorMove', { to: 'down', value: linesDownToMoveCursor });
-            };
-            vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter'});  //光标归位于行首
+        if (isMoveCursor && !isSelection) {
+            moveCursor_stat = 1
+            while (moveCursor_stat === 1) {
+                const linesDownToMoveCursor = (endLine == startLine) ? 1 : 0
+                if (is_command_text_end == false) {  //判断非/n结尾时
+                    vscode.commands.executeCommand('cursorMove', { to: 'down', value: linesDownToMoveCursor });
+                };
+                vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter' });  //光标归位于行首
+
+                startLine++;
+                const POS = (startLine > 0) ? (startLine - 1) : startLine;
+                const charactersOnLine = vscode.window.activeTextEditor.document.lineAt(POS).text.length;
+                const range = new vscode.Range(new vscode.Position(POS, 0), new vscode.Position(POS, charactersOnLine));
+                let command_text = vscode.window.activeTextEditor.document.getText(range);                
+                // console.log("ok123----")
+                // console.log(command_text)
+                // console.log(RegExp(/^\s*$/g).test(command_text))  // 检验空行
+                // console.log(RegExp(/^\s*#.*/g).test(command_text))  // 检验注释行
+                if (RegExp(/^\s*$/g).test(command_text) || RegExp(/^\s*#.*/g).test(command_text)) { // 空行开头，或者 # 开头
+                    moveCursor_stat = 1
+                } else {
+                    moveCursor_stat = 0
+                }
+            }
         }
         // queueLoop();
     });

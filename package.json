@@ -3,7 +3,7 @@
     "displayName": "Send To Terminal",
     "repository": "https://github.com/wan230114/vscode-sendToTerminal",
     "description": "Send text to terminal, including useful keybindings",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "ChenJun",
     "icon": "icon.png",
     "engines": {
@@ -35,7 +35,7 @@
             "properties": {
                 "terminal.runInCurrentDirectory": {
                     "type": "boolean",
-                    "default": true,
+                    "default": false,
                     "description": "Enable/Disable Run in the same directory as the file, during terminal initialization. (Need to restart terminal)"
                 },
                 "terminal.focusActiveEditorGroup": {
