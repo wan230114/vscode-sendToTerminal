@@ -110,26 +110,24 @@ Currently it includes a command:
 
 ## Changelogs
 
+### v0.0.3 (2021-02-09)
 
-### v0.0.3（2021-02-09）
+**Function optimization**
+> - [x] Automatically skip comment lines and blank lines.
 
-**功能优化**
-> - [x] 自动跳过注释行和空行。
+### v0.0.2 (2021-02-08)
 
-### v0.0.2（2021-02-08）
+**Fix BUG**
+> - [x] Fix the bug that vscode cannot be used normally after updating vscode `January 2021 (version 1.53)`.
 
-**修复错误**
-> - [x] 恢复更新vscode`2021年1月（1.53版）`后无法正常使用的BUG。
-
-**功能优化**
-> - [x] 进入状态下，不自动重新加入下一行。
+**Function optimization**
+> - [x] When selected, do not automatically jump to the next line.
 
 
-### v0.0.1（2020-12-13）
+### v0.0.1 (2020-12-13)
 
-**第一次新版本发布**
-> - [x] 设置任选：在`terminal`运行代码后，是否设置直接返回聚焦于文档的编辑窗口。
-> - [x] 设置任选：运行时在`terminal`初始化中是否自动加载进入编辑文件所在文件夹去运行（可方便读取不同级文件夹文件）。
-> - [x] 设置任选：发送前可以选择是否自动保存，此选项配合`terminal`语法`load`的使用。
-> - [x] 设置任选：发送后是否让光标自动切换到下一行，方便更为快捷的`文件`->`终端`的交互。
-
+**First new version released**
+> - [x] Setting is optional: After running the code in `terminal`, whether to set to return to the editing window focused on the document.
+> - [x] Optional setting: Whether to automatically load into the folder where the edited file is located during the initialization of `terminal` during runtime (it is convenient to read files in different levels of folders).
+> - [x] Setting is optional: you can choose whether to save automatically before sending. This option is used in conjunction with the `terminal` syntax `load`.
+> - [x] Setting is optional: whether to let the cursor automatically switch to the next line after sending, which is convenient and quicker to interact with `File`-->`Terminal`.
