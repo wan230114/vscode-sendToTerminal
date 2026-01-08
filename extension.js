@@ -151,6 +151,10 @@ function activate(context) {
 
                 startLine++;
                 const POS = (startLine > 0) ? (startLine - 1) : startLine;
+                // 检查是否超出文档行数，避免"Illegal value for `line`"错误
+                if (POS >= vscode.window.activeTextEditor.document.lineCount) {
+                    break; // 已经到达文档末尾，退出循环
+                }
                 const charactersOnLine = vscode.window.activeTextEditor.document.lineAt(POS).text.length;
                 const range = new vscode.Range(new vscode.Position(POS, 0), new vscode.Position(POS, charactersOnLine));
                 let command_text = vscode.window.activeTextEditor.document.getText(range);                

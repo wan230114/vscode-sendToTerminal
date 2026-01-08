@@ -41,6 +41,11 @@
 
 ## 更新日志Changelogs
 
+### v0.0.4 (2026-01-08)
+
+**功能优化**
+> - [x] 解决空行跳转时，弹出：`Illegal value for line on run` [#1](https://github.com/wan230114/vscode-sendToTerminal/issues/1)问题。
+
 ### v0.0.3 (2021-02-09)
 
 **功能优化**
@@ -110,24 +115,31 @@ Currently it includes a command:
 
 ## Changelogs
 
+### v0.0.4 (2026-01-08)
+
+**Function optimization**
+
+> - [x] Solve the problem of `Illegal value for line on run` [#1](https://github.com/wan230114/vscode-sendToTerminal/issues/1) when jumping to a blank line.
+
 ### v0.0.3 (2021-02-09)
 
 **Function optimization**
-> - [x] Automatically skip comment lines and blank lines.
+> - [x] Automatically skip comment lines and empty lines.
 
 ### v0.0.2 (2021-02-08)
 
-**Fix BUG**
-> - [x] Fix the bug that vscode cannot be used normally after updating vscode `January 2021 (version 1.53)`.
+**Bug fixes**
+> - [x] Fixed the bug that prevented normal use after updating vscode `January 2021 (version 1.53)`.
 
 **Function optimization**
-> - [x] When selected, do not automatically jump to the next line.
+> - [x] In the selected state, do not automatically jump to the next line.
 
 
 ### v0.0.1 (2020-12-13)
 
-**First new version released**
-> - [x] Setting is optional: After running the code in `terminal`, whether to set to return to the editing window focused on the document.
-> - [x] Optional setting: Whether to automatically load into the folder where the edited file is located during the initialization of `terminal` during runtime (it is convenient to read files in different levels of folders).
-> - [x] Setting is optional: you can choose whether to save automatically before sending. This option is used in conjunction with the `terminal` syntax `load`.
-> - [x] Setting is optional: whether to let the cursor automatically switch to the next line after sending, which is convenient and quicker to interact with `File`-->`Terminal`.
+**First new version release**
+> - [x] Optional setting: After running code in `terminal`, whether to set to return directly to the editing window focused on the document.
+> - [x] Optional setting: Whether to automatically load into the folder where the edited file is located during `terminal` initialization at runtime (convenient for reading files in different level folders).
+> - [x] Optional setting: Whether to automatically save before sending. This option is used in conjunction with the `terminal` syntax `load`.
+> - [x] Optional setting: Whether to make the cursor automatically switch to the next line after sending, facilitating quicker `File`->`Terminal` interaction.
+
